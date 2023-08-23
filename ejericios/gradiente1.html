@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canvas | Gradiente Lineal</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        canvas {
+            background-color: green;
+            border: solid yellow 3px;
+        }
+    </style>
+    <script>
+	window.onload=function() {
+		canvas = document.getElementById("canvas");
+		if (canvas && canvas.getContext) {
+			ctx = canvas.getContext("2d");
+			if (ctx) {
+				var gradiente = ctx.createLinearGradient(0,0,canvas.width,0);
+
+				gradiente.addColorStop(0,"green");
+				gradiente.addColorStop(0.45,"white");
+				gradiente.addColorStop(0.55,"white");
+				gradiente.addColorStop(1,"red");
+
+				ctx.fillStyle = gradiente;
+				ctx.fillRect(0,0,canvas.width,canvas.height);
+			
+			} else {
+				alert("Tu navegador NO soporta la etiqueta canvas");
+			} 
+		}
+	}
+    </script>
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="400">
+        Tu navegador no soporta la etiqueta canvas
+    </canvas>
+</body>
+
+</html>

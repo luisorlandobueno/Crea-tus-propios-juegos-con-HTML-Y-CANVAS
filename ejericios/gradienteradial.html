@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canvas | Gradiente Radial</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        body {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        canvas {
+            background-color: green;
+            border: solid yellow 3px;
+        }
+    </style>
+    <script>
+	window.onload=function() {
+		canvas = document.getElementById("canvas");
+		if (canvas && canvas.getContext) {
+			ctx = canvas.getContext("2d");
+			if (ctx) {
+
+                x1= canvas.width / 2;
+                y1 = canvas.height / 2;
+                r1 = 10;
+
+                x2 = canvas.width / 2;
+                y2 = canvas.height / 2;
+                r2 = 300;
+
+                var gradiente = ctx.createRadialGradient(x1,y1,r1,x2,y2,r2);
+
+                gradiente.addColorStop(0,"pink");
+                gradiente.addColorStop(0.15,"yellow");
+                gradiente.addColorStop(0.35,"white");
+                gradiente.addColorStop(0.65,"green");
+                gradiente.addColorStop(1,"red");
+
+                ctx.fillStyle= gradiente;
+                ctx.fillRect(0,0,canvas.width,canvas.height);
+				
+
+
+
+
+			} else {
+				alert("Tu navegador NO soporta la etiqueta canvas");
+			} 
+		}
+	}
+    </script>
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="400">
+        Tu navegador no soporta la etiqueta canvas
+    </canvas>
+</body>
+
+</html>

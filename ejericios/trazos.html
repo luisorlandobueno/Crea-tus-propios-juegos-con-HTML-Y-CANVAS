@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        canvas {
+
+            background-color: rgb(0, 221, 255);
+            border: solid yellow 3px;
+
+
+
+        }
+    </style>
+
+    <script>
+
+        window.onload=function(){
+
+            canvas = document.getElementById('canvas');
+
+            if(canvas && canvas.getContext){
+                ctx = canvas.getContext("2d");
+
+                if(ctx){
+
+                    //estilos
+                    ctx.lineWidth=10;
+                    ctx.strokeStyle="yellow";
+                    ctx.fillStyle="red";
+
+                 //path
+                 ctx.beginPath();
+                 ctx.moveTo(50, 100);
+                 ctx.lineTo(100, 50);
+                 ctx.lineTo(150, 100);
+                 ctx.lineTo(100, 150);
+                 ctx.stroke();
+
+                    //path
+                    ctx.beginPath();
+                    ctx.moveTo(200, 100);
+                    ctx.lineTo(250, 50);
+                    ctx.lineTo(300, 100);
+                    ctx.lineTo(250, 150);
+                    ctx.closePath();
+                    ctx.stroke();
+
+
+                      //path
+                    ctx.beginPath();
+                    ctx.moveTo(350, 100);
+                    ctx.lineTo(400, 50);
+                    ctx.lineTo(450, 100);
+                    ctx.lineTo(400, 150);
+                    ctx.fill();
+                    ctx.closePath();
+                    ctx.stroke();
+
+
+
+
+
+
+
+
+          
+
+
+
+
+
+                    
+
+                }else{
+
+                    alert("no se soporta la etiqueta canvas");
+
+
+                }
+
+
+            }
+
+
+
+
+
+        }
+
+
+
+
+    </script>
+
+</head>
+
+<body>
+
+    <canvas id="canvas" width="600" height="400">
+
+
+    </canvas>
+
+</body>
+
+</html>

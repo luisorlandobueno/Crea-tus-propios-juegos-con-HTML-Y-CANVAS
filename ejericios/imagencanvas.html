@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canvas Manejo de imágenes</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            width: 510px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        canvas {
+            background-color: green;
+            border: solid yellow 3px;
+        }
+    </style>
+    <script>
+
+        var canvas,ctx,imagen;
+        var archivoSelect;
+
+	
+	window.onload=function() {
+		
+        archivoSelect = document.getElementById("archivo");
+
+		canvas = document.getElementById("canvas");
+		if (canvas && canvas.getContext) {
+			ctx = canvas.getContext("2d");
+			if (ctx) {
+
+
+                archivoSelect.onchange = function(e){
+
+                    if(archivoSelect.value!=""){
+                        imagen.src="imagenes/"+ archivoSelect.value;
+                        imagen.onload = function(e){
+
+                            procesaImagen();
+                        }
+                    }
+                }
+
+
+                function procesaImagen(){
+                        limpiar();
+                        ctx.drawImage(imagen,10,10);
+
+                }
+
+                function limpiar(){
+
+                    ctx.clearRect(250,10,imagen.width,imagen.height);
+                }
+
+
+                imagen = new Image();
+                imagen.src = "imagenes/grito.jpg";
+                imagen.onload = function(e){
+
+                    procesaImagen();
+
+                }
+			
+
+
+			} else {
+				alert("Tu navegador NO soporta la etiqueta canvas");
+			} 
+		}
+	}
+    </script>
+</head>
+
+<body>
+    <h1>Proceso de imágenes</h1>
+    <canvas id="canvas" width="500" height="300">
+        Tu navegador no soporta la etiqueta canvas
+    </canvas>
+
+
+      imagen:<select name="" id="archivo">
+        <option value="">--seleccione un archivo</option>
+        <option value="atenea.png">atenea</option>
+        <option value="afrodita.png">Afrodita</option>
+        <option value="klimt.png">El beso</option>
+        <option value="grito.jpg">El grito</option>
+        <option value="vanGogh.png">Autoretrato</option>
+
+      </select>
+  
+
+
+
+</body>
+
+</html>

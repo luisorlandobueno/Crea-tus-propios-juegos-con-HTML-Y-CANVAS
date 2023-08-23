@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        canvas {
+
+            background-color: rgb(0, 221, 255);
+            border: solid yellow 3px;
+
+
+
+        }
+    </style>
+
+    <script>
+
+        function Rectangulo(x,y,ancho,alto,radio,fondo,linea){
+
+            this.x = x;
+            this.y = y;
+            this.w = ancho;
+            this.h = alto;
+            this.r = radio;
+            this.f = fondo;
+            this.l = linea;
+
+            this.dibujar=function(){
+
+                ctx.save();
+
+                ctx.beginPath();
+                ctx.moveTo(this.x , this.y+this.r);
+
+                //Esquina inferior izquierda
+                ctx.lineTo(this.x , this.y+this.h-this.r);
+                ctx.quadraticCurveTo(this.x , this.y+this.h , this.x+this.r , this.y+this.h);
+
+                //Esquina inferior derecha
+                ctx.lineTo(this.x + this.w - this.r, this.y + this.h);
+                ctx.quadraticCurveTo(this.x + this.w, this.y + this.h, this.x + this.w, this.y + this.h - this.r);
+
+                //Esquina superiro derecha
+                //
+                ctx.lineTo(this.x + this.w, this.y + this.r);
+                ctx.quadraticCurveTo(this.x + this.w, this.y, this.x + this.w - this.r, this.y);
+
+                //Esquina superior izquierda
+                ctx.lineTo(this.x + this.r, this.y);
+                ctx.quadraticCurveTo(this.x, this.y, this.x, this.y + this.r);
+
+
+                ctx.fillStyle = this.f;
+                ctx.strokeStyle = this.l;
+                ctx.fill();
+                ctx.stroke();
+                ctx.restore();
+
+
+            }
+
+
+        }
+
+
+
+
+
+        window.onload=function(){
+            canvas = document.getElementById('canvas');
+            if(canvas && canvas.getContext){
+                ctx = canvas.getContext("2d");
+
+                if(ctx){
+
+                    var rectangulo1 = new Rectangulo(30,30,200,120,20 , "yellow" , "black");
+                    var rectangulo2 = new Rectangulo(250, 30, 200, 120, 20, "red", "black");
+
+                    rectangulo1.dibujar();
+                    rectangulo2.dibujar();
+
+                 
+
+
+                 
+
+             
+
+                }else{
+
+                    alert("no se soporta la etiqueta canvas");
+
+
+                }
+
+
+            }
+
+
+
+
+
+        }
+
+
+
+
+    </script>
+
+</head>
+
+<body>
+
+    <canvas id="canvas" width="600" height="400">
+
+
+    </canvas>
+
+</body>
+
+</html>

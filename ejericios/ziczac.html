@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        canvas {
+
+            background-color: rgb(0, 221, 255);
+            border: solid yellow 3px;
+
+
+
+        }
+    </style>
+
+    <script>
+
+        window.onload=function(){
+
+            canvas = document.getElementById('canvas');
+
+            if(canvas && canvas.getContext){
+                ctx = canvas.getContext("2d");
+
+                if(ctx){
+
+                    var inicioX=85;
+                    var inicioY=70;
+                    var desplazamiento=30;
+                    var lineas=25;
+
+                    ctx.lineWidth = 10;
+                    ctx.strokeStyle = "blue";
+                    //ctx.lineCap = "round";
+                    //ctx.lineJoin = "round";
+                    ctx.beginPath();
+                    ctx.moveTo(inicioX,inicioY);
+
+                    for(var i=0 ; i < lineas ; i++){
+                        
+                        var x= inicioX +((i+1)*desplazamiento);
+                        var y=inicioY;
+
+                        if(i%2==0){
+
+                            y = inicioY + 100;
+
+                        }
+
+                        ctx.lineTo(x,y);
+
+                    }
+
+                    ctx.stroke();
+
+
+
+
+
+
+
+              
+
+                 
+
+
+                          
+
+                }else{
+
+                    alert("no se soporta la etiqueta canvas");
+
+
+                }
+
+
+            }
+
+
+
+
+
+        }
+
+
+
+
+    </script>
+
+</head>
+
+<body>
+
+    <canvas id="canvas" width="600" height="400">
+
+
+    </canvas>
+
+</body>
+
+</html>

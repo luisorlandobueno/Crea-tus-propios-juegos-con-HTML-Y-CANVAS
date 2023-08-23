@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canvas Engrane</title>
+    <meta charset="utf-8">
+    <style>
+        canvas {
+            background-color: green;
+            border: solid yellow 3px;
+        }
+    </style>
+    <script>
+	window.onload=function() {
+		canvas = document.getElementById("canvas");
+		if (canvas && canvas.getContext) {
+			ctx = canvas.getContext("2d");
+			if (ctx) {
+
+                //centro
+                var centroX = canvas.width  / 2;
+                var centroY = canvas.height / 2;
+
+                //Radios de los circulos
+                var radioExterno = 95;
+                var radioInterno = 50;
+                var radioMedio = radioInterno * 1.6;
+                var radioCentro = 20;
+
+                //Numero de puntos
+                var numPuntos = 40;
+
+                ctx.beginPath();
+                ctx.lineJoin = "bevel";
+
+
+                for(var i = 0 ; i< numPuntos ; i++){
+                    var radio = null;
+
+                    if(i%2==0){
+                        radio = radioExterno;
+
+                    }else{
+
+                        radio = radioInterno;
+                    }
+
+                    var angulo = Math.PI *2 / numPuntos * (i+1);
+                    //Calculamos las coordenadas externas
+
+                    var x = (radio * Math.sin(angulo)) + centroX;
+                    var y = (radio * Math.cos(angulo)) + centroY;
+
+                    //Dibujamos la línea
+                    if(i===0){
+                        ctx.moveTo(x, y);
+
+                    }else{
+
+                        ctx.lineTo(x, y);
+
+                    }
+
+                }
+
+                ctx.closePath();
+
+                ctx.lineWidth = 5;
+                ctx.strokeStyle = "red";
+                ctx.fillStyle = "orange";
+                ctx.stroke();
+
+
+
+
+
+
+
+
+
+
+				
+			} else {
+				alert("Tu navegador NO soporta la etiqueta canvas");
+			} 
+		}
+	}
+    </script>
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="400">
+        Tu navegador no soporta la etiqueta canvas
+    </canvas>
+</body>
+
+</html>

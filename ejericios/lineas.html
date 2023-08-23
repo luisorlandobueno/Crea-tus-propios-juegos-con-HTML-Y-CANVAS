@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        canvas {
+
+            background-color: rgb(0, 221, 255);
+            border: solid yellow 3px;
+
+
+
+        }
+    </style>
+
+    <script>
+
+        window.onload=function(){
+
+            canvas = document.getElementById('canvas');
+
+            if(canvas && canvas.getContext){
+                ctx = canvas.getContext("2d");
+
+                if(ctx){
+
+                    //estilos
+                    ctx.lineWidth=25;
+                    ctx.strokeStyle="yellow";
+
+                    //iniciamos el trazo
+                    ctx.beginPath();
+                    ctx.lineCap="round";
+                    ctx.moveTo(50,50);
+                    ctx.lineTo(450,50);
+                    ctx.stroke();
+
+
+                    ctx.strokeStyle = "orange";
+                    ctx.lineCap = "square";
+                    ctx.beginPath();
+                    ctx.moveTo(50, 100);
+                    ctx.lineTo(450, 100);
+                    ctx.stroke();
+
+
+                    ctx.strokeStyle = "blue";
+                    ctx.lineCap = "butt";
+                    ctx.beginPath();
+                    ctx.moveTo(50, 150);
+                    ctx.lineTo(450, 150);
+                    ctx.stroke();
+           
+
+                }else{
+
+                    alert("no se soporta la etiqueta canvas");
+
+
+                }
+
+
+            }
+
+
+
+
+
+        }
+
+
+
+
+    </script>
+
+</head>
+
+<body>
+
+    <canvas id="canvas" width="600" height="400">
+
+
+    </canvas>
+
+</body>
+
+</html>

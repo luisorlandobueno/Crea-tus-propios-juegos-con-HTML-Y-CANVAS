@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        canvas{
+
+            background-color: rgb(0, 221, 255);
+            border:solid yellow 3px;
+
+
+
+        }
+
+    </style>
+
+    <script>
+
+        window.onload=function(){
+
+            canvas = document.getElementById('canvas');
+
+            if(canvas && canvas.getContext){
+                ctx = canvas.getContext("2d");
+
+                if(ctx){
+
+                    //definimos las colores
+                    ctx.fillStyle = "yellow";
+                    ctx.strokeStyle="#ff0000";
+                    ctx.lineWidth=5;
+
+                    //x,y,w,h
+
+                    ctx.fillRect(50,50,100,100);
+                    ctx.strokeRect(50, 50, 100, 100);
+
+                    //Cambiar color de relleno
+                    ctx.fillStyle= "rgba(250,250,0,0.25)";
+                    ctx.fillRect(200, 50, 100, 100);
+                    ctx.strokeRect(200, 50, 100, 100);
+
+
+
+
+
+                    
+
+                }else{
+
+                    alert("no se soporta la etiqueta canvas");
+
+
+                }
+
+
+            }
+
+
+
+
+
+        }
+
+
+
+
+    </script>
+
+</head>
+<body>
+
+    <canvas id="canvas" width="600" height="400">
+
+
+    </canvas>
+    
+</body>
+</html>

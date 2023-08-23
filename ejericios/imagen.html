@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canvas | Imagen</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        canvas {
+            background-color: green;
+            border: solid yellow 3px;
+        }
+    </style>
+    <script>
+	window.onload=function() {
+		canvas = document.getElementById("canvas");
+		if (canvas && canvas.getContext) {
+			ctx = canvas.getContext("2d");
+			if (ctx) {
+
+                var imagen = new Image();
+                imagen.src ="grito.jpg";
+
+                imagen.onload = function(e){
+
+                    procesarImagen();
+
+
+                }
+
+                function procesarImagen(){
+
+                    ctx.drawImage(imagen,10,10);
+                }
+				
+
+
+
+
+			} else {
+				alert("Tu navegador NO soporta la etiqueta canvas");
+			} 
+		}
+	}
+    </script>
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="400">
+        Tu navegador no soporta la etiqueta canvas
+    </canvas>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canvas | Estrella</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        canvas {
+            background-color: green;
+            border: solid yellow 3px;
+        }
+    </style>
+    <script>
+	window.onload=function() {
+		canvas = document.getElementById("canvas");
+		if (canvas && canvas.getContext) {
+			ctx = canvas.getContext("2d");
+			if (ctx) {
+
+                var puntas = 10;
+                var vertices = puntas * 2 ;
+                var angulo = Math.PI * 2 / vertices;
+                var radioInterno = 40;
+                var radioExterno = 80;
+                var xx = canvas.width / 2;
+                var yy = canvas.height / 2;
+                ctx.strokeStyle = "red";
+                ctx.fillStyle = "yellow";
+                ctx.lineWidth = 10;
+                ctx.beginPath();
+
+
+                for(var i = 0 ;  i < vertices ;i++){
+                    var x, y;
+
+                    if(i%2==0){
+                        x = Math.cos(angulo * i) * radioExterno;
+                        y = Math.sin(angulo * i) * radioExterno;
+                    
+                    }else{
+
+                        x = Math.cos(angulo * i) * radioInterno;
+                        y = Math.sin(angulo * i) * radioInterno;
+
+                    }
+
+                    ctx.lineTo(xx+x , yy+y);
+
+
+                }
+
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+
+
+
+
+
+
+
+
+				
+		
+
+			} else {
+				alert("Tu navegador NO soporta la etiqueta canvas");
+			} 
+		}
+	}
+    </script>
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="400">
+        Tu navegador no soporta la etiqueta canvas
+    </canvas>
+</body>
+
+</html>
