@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Animación sprites</title>
+<style>
+		body{
+			width:1000px;
+			margin:0 auto;
+			text-align: center;
+		}
+		canvas{
+			background-color: green;
+			border: solid yellow 3px;
+		}
+	</style>
+<script>
+	var canvas,ctx;
+	//
+	window.onload=function() {
+		canvas = document.getElementById("canvas");
+		if (canvas && canvas.getContext) {
+			ctx = canvas.getContext("2d");
+			if (ctx) {
+				var fondo = new Image();
+				fondo.src = "images/BG.png";
+				fondo.onload = function(){
+					ctx.drawImage(fondo,0,0,fondo.width,fondo.height);
+					inicioX = 0;
+					ancho = fondo.width;
+					dx = 25;
+
+					setInterval(function(){
+						//ctx.clearRect(0,0,960,600);
+						inicioX+=dx;
+						ancho-=dx;
+						ctx.drawImage(fondo,
+							inicioX,0,ancho,fondo.height,
+							0,0,ancho,fondo.height);
+
+							
+						ctx.drawImage(fondo,
+							//lees
+							0,0,fondo.width-ancho,fondo.height,
+							//dibujas
+							fondo.width-inicioX,0,fondo.width-ancho,fondo.height);
+						if (ancho<=0) {
+							inicioX = 0;
+							ancho = fondo.width;
+						}
+					},1000/16);
+				}				
+			}
+		}
+	}
+
+</script>
+</head>
+<body>
+	<canvas id="canvas" width="1000px" height="750px">
+	Tu navegador no soporta CANVAS
+	</canvas>
+</body>
+</html>
