@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Animación sprites</title>
+<style>
+		body{
+			width:1000px;
+			margin:0 auto;
+			text-align: center;
+		}
+		canvas{
+			background-color: green;
+			border: solid yellow 3px;
+		}
+	</style>
+<script>
+	var canvas,ctx;
+	window.onload=function() {
+		canvas = document.getElementById("canvas");
+		if (canvas && canvas.getContext) {
+			ctx = canvas.getContext("2d");
+			if (ctx) {
+				var col = [
+				[0,71,170,266,376,444,515,654],
+				[0,71,146,198,272,334,396,454,518,584],
+				[0,84,153,202,274,331,397,467,530,654],
+				[0,87,148,207,266,344,395,452,524,594]
+				];
+				var ren = [0,105,206,310,424];
+				// Cuadro inicial
+				let cuadro = 0;
+				let row = 0;
+				let escala = 1;
+				//
+				var sprite = new Image();
+				sprite.src = "ryu.png";
+				sprite.onload =  function(){
+					// Número de columnas y renglones
+					let numColumns = col[row].length-1;
+
+					//
+					setInterval(function()
+					{
+					    frameWidth = col[row][cuadro+1] - col[row][cuadro];
+					    frameHeight = ren[row+1] - ren[row];
+
+					    // Limpiar canvas
+					    ctx.clearRect(0, 0, canvas.width, canvas.height);
+					    ctx.drawImage(sprite, 		//Objeto
+					    	//La coordenada x donde empezar a recortar.
+					    	col[row][cuadro],
+					    	//La coordenada y dónde empezar a recortar 	
+					    	ren[row], 	
+					    	//El ancho de la imagen recortada	
+					    	frameWidth, 
+					    	//La altura de la imagen recortada
+					    	frameHeight, 			
+					    	//La coordenada x donde colocar la imagen en el lienzo
+					    	100, 
+					    	//La coordenada y donde colocar la imagen en el lienzo
+					    	20,
+					    	//El ancho de la imagen a usar (estirar o reducir la imagen)
+					    	frameWidth * escala, 
+					    	//El alto de la imagen a usar (estirar o reducir la imagen)
+					    	frameHeight * escala);
+
+					    // Siguiente cuadro
+					    console.log(cuadro, frameWidth);
+					    cuadro++;
+
+					    // Número de cuadro
+					    if (cuadro == numColumns){
+					        cuadro = 0;
+					    }
+					//esperar el siguiente cuadro
+					},1000/5);		
+				}
+			}
+		}
+	}
+</script>
+</head>
+<body>
+	<canvas id="canvas" width="600px" height="400px">
+	Tu navegador no soporta CANVAS
+	</canvas>
+</body>
+</html>
