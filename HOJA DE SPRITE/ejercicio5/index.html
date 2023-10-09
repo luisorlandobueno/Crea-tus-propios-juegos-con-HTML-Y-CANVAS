@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Animación sprites</title>
+    <style>
+        body {
+            width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        canvas {
+            background-color: green;
+            border: solid yellow 3px;
+        }
+    </style>
+    <script>
+        var canvas, ctx, miTecla = null;
+        //
+        window.onload = function () {
+            canvas = document.getElementById("canvas");
+            if (canvas && canvas.getContext) {
+                ctx = canvas.getContext("2d");
+                if (ctx) {
+
+                    var col = [
+                        [0, 71, 170, 266, 376, 444, 515, 654],
+                        [0, 71, 146, 198, 272, 334, 396, 454, 518, 584],
+                        [0, 84, 153, 202, 274, 331, 397, 467, 530, 654],
+                        [0, 87, 148, 207, 266, 344, 395, 452, 524, 594]
+                    ];
+                    var ren = [0, 105, 206, 310, 424];
+                    // Cuadro inicial
+                    let cuadro = 0;
+                    let row = 3;
+                    let escala = 3;
+
+                    limpiaPantalla();
+                    animacion(ctx, col, ren, 99, cuadro, escala);
+
+                    document.onkeypress = function (e) {
+
+                        var tecla = String.fromCharCode(e.which);
+                        tecla = Number(tecla);
+                        if (miTecla != null) {
+
+                            clearInterval(miTecla)
+
+                        }
+
+                        animacion(ctx, col, ren, tecla, cuadro, escala);
+
+
+
+                    }
+
+                }
+            }
+        }
+
+        function animacion(ctx, col, ren, row, cuadro, escala){
+
+            var sprite = new Image();
+            sprite.src = "ryu.png";
+            sprite.onload = function () {
+
+                if(row != 0 && row != 1 && row != 2 && row != 3){
+
+                    limpiaPantalla();
+                    ctx.drawImage(sprite, 0, 0, 71, 105, 20, 20, 71 * escala, 105 * escala);
+
+
+                }else{
+
+                    let numColumns = col[row].length - 1;
+
+                    miTecla = setInterval(function(){
+
+                        frameWidth = col[row][cuadro + 1] - col[row][cuadro];
+                        frameHeight = ren[row + 1] - ren[row];
+
+                        limpiaPantalla();
+
+                        ctx.drawImage(sprite, 		//Objeto
+                            //La coordenada x donde empezar a recortar.
+                            col[row][cuadro],
+                            //La coordenada y dónde empezar a recortar 	
+                            ren[row],
+                            //El ancho de la imagen recortada	
+                            frameWidth,
+                            //La altura de la imagen recortada
+                            frameHeight,
+                            //La coordenada x donde colocar la imagen en el lienzo
+                            20,
+                            //La coordenada y donde colocar la imagen en el lienzo
+                            20,
+                            //El ancho de la imagen a usar (estirar o reducir la imagen)
+                            frameWidth * escala,
+                            //El alto de la imagen a usar (estirar o reducir la imagen)
+                            frameHeight * escala);
+
+                            cuadro++;
+
+                        if (cuadro == numColumns) {
+                            cuadro = 0;
+                        }
+
+
+
+                    },1000/8);
+
+
+                }
+
+
+
+            }
+
+
+
+
+
+
+
+        }
+
+        function limpiaPantalla() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.font = "bold 30px Comic";
+            ctx.fillStyle = "black";
+            ctx.fillText("0. Energía", 360, 120);
+            ctx.fillText("1. Giro", 360, 160);
+            ctx.fillText("2. Patada larga", 360, 200);
+            ctx.fillText("3. Patada corta", 360, 240);
+            ctx.fillText("Otra tecla detiene", 360, 280);
+
+
+
+        }
+    
+     
+    </script>
+</head>
+
+<body>
+    <canvas id="canvas" width="600px" height="400px">
+        Tu navegador no soporta CANVAS
+    </canvas>
+</body>
+
+</html>
