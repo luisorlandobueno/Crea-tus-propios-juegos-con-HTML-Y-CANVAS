@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Animación sprites</title>
+    <style>
+        body {
+            width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        canvas {
+            background-color: green;
+            border: solid yellow 3px;
+        }
+    </style>
+    <script>
+
+        var canvas,ctx;
+        window.onload=function(){
+            canvas = document.getElementById("canvas");
+
+            if(canvas && canvas.getContext){
+                ctx = canvas.getContext("2d");
+                if(ctx){
+
+                    var sprite = new Image();
+                    sprite.src="perro.jpg";
+                    sprite.onload=function(){
+
+                        let numColumns = 6;
+                        let numRows = 5;
+
+                        let frameWidth = sprite.width / numColumns;
+                        let frameHeight= sprite.height / numRows;
+
+
+                        let currentFrame = 0;
+
+
+                        setInterval(function () {
+
+                            currentFrame++;
+
+                            let maxFrame = numColumns * numRows -1 ;
+
+                            if(currentFrame > maxFrame){
+
+                                currentFrame = 0;
+
+
+                            }
+
+                            let column = currentFrame % numColumns;
+                            let row = Math.floor(currentFrame / numColumns);
+
+                            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                             ctx.drawImage(sprite, 		//Objeto
+                                //La coordenada x donde empezar a recortar.
+                                column * frameWidth,
+                                //La coordenada y dónde empezar a recortar 	
+                                row * frameHeight,
+                                //El ancho de la imagen recortada	
+                                frameWidth,
+                                //La altura de la imagen recortada
+                                frameHeight,
+                                //La coordenada x donde colocar la imagen en el lienzo
+                                40,
+                                //La coordenada y donde colocar la imagen en el lienzo
+                                30,
+                                //El ancho de la imagen a usar (estirar o reducir la imagen)
+                                frameWidth,
+                                //El alto de la imagen a usar (estirar o reducir la imagen)
+                                frameHeight);
+
+
+
+
+
+                        },100);
+
+                    }
+
+
+                }
+
+            }
+
+
+
+
+
+        }
+
+
+
+
+
+    </script>
+  
+
+
+
+
+  
+</head>
+
+<body>
+    <canvas id="canvas" width="960px" height="600px">
+        Tu navegador no soporta CANVAS
+    </canvas>
+</body>
+
+</html>
