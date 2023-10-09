@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Animación sprites</title>
+    <style>
+        body {
+            width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        canvas {
+            background-color: green;
+            border: solid yellow 3px;
+        }
+    </style>
+    <script>
+
+        var canvas, ctx;
+        window.onload = function () {
+            canvas = document.getElementById("canvas");
+
+            if (canvas && canvas.getContext) {
+                ctx = canvas.getContext("2d");
+                if (ctx) {
+
+                    let cuadro = 0;
+
+                    	setInterval(function () {
+
+
+
+                            cuadro ++;
+
+                            if(cuadro > 54){
+
+                                cuadro=1;
+                            }
+
+                            var sprite = new Image();
+                            sprite.src="sprites/"+cuadro+".png";
+
+                            sprite.onload=function(){
+
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                                	ctx.drawImage(sprite, 		//Objeto
+                                    //La coordenada x donde colocar la imagen en el lienzo
+                                    250,
+                                    //La coordenada y donde colocar la imagen en el lienzo
+                                    120,
+                                    //El ancho de la imagen a usar (estirar o reducir la imagen)
+                                    264,
+                                    //El alto de la imagen a usar (estirar o reducir la imagen)
+                                    261);
+
+
+                            }
+
+
+
+
+
+                        },1000/50);
+
+
+
+
+                
+
+
+                }
+
+            }
+
+
+
+
+
+        }
+
+
+
+
+
+    </script>
+
+
+
+
+
+
+</head>
+
+<body>
+    <canvas id="canvas" width="960px" height="600px">
+        Tu navegador no soporta CANVAS
+    </canvas>
+</body>
+
+</html>
