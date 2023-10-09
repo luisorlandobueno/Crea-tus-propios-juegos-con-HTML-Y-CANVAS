@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Animación sprites</title>
+<style>
+		body{
+			width:1000px;
+			margin:0 auto;
+			text-align: center;
+		}
+		canvas{
+			background-color: green;
+			border: solid yellow 3px;
+		}
+	</style>
+<script>
+
+	var canvas, ctx, miTecla = null;
+
+	window.onload = function () {
+		canvas = document.getElementById("canvas");
+		if (canvas && canvas.getContext) {
+			ctx = canvas.getContext("2d");
+
+			if(ctx){
+
+				var accion = [
+					{ a: "Dead", n: 10 },
+					{ a: "Hurt", n: 8 },
+					{ a: "Idle", n: 10 },
+					{ a: "Jump", n: 12 },
+					{ a: "Run", n: 8 },
+					{ a: "Slide", n: 5 }
+				];
+
+				let cuadro = 0;
+
+				limpiaPantalla();
+				animacion(ctx, 2, accion);
+
+				document.onkeypress = function (e) {
+					var tecla = String.fromCharCode(e.which);
+					tecla = Number(tecla);
+					if (miTecla != null) {
+						clearInterval(miTecla)
+					}
+					animacion(ctx, tecla, accion);
+				}
+
+			}
+
+		}
+
+	}
+
+	function animacion(ctx, row, accion) {
+
+		if (row >= 0 && row <= 5) {
+
+			let numColumnas = accion[row].n;
+			console.log(numColumnas);0
+			let a = accion[row].a;
+			let cuadro = 1;
+
+			miTecla = setInterval(function () {
+
+				var sprite = new Image();
+				sprite.src = "redhatfiles/png/" + a + " (" + cuadro + ").png";
+				sprite.onload= function(){
+
+					limpiaPantalla();
+					ctx.drawImage(sprite, 		//Objeto
+						//La coordenada x donde colocar la imagen en el lienzo
+						0,
+						//La coordenada y donde colocar la imagen en el lienzo
+						0,
+						//El ancho de la imagen a usar (estirar o reducir la imagen)
+						sprite.width,
+						//El alto de la imagen a usar (estirar o reducir la imagen)
+						sprite.height);
+
+						cuadro++;
+
+						if(cuadro > numColumnas){
+
+							if(row == 0){
+
+								clearInterval(miTecla);
+							}else{
+
+								cuadro = 1;
+							}
+
+
+							
+
+						}
+
+
+
+
+				}
+
+
+
+
+			}, 1000 / 12);
+
+
+
+
+
+
+
+		}
+
+
+
+
+
+	}
+
+
+
+
+
+		function limpiaPantalla() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.font = "bold 30px Comic";
+			ctx.fillStyle = "black";
+			ctx.fillText("0. Morir", 660, 120);
+			ctx.fillText("1. Herir", 660, 160);
+			ctx.fillText("2. Quieto", 660, 200);
+			ctx.fillText("3. Saltar", 660, 240);
+			ctx.fillText("4. Correr", 660, 280);
+			ctx.fillText("5. Deslizar", 660, 320);
+		}
+
+
+</script>
+</head>
+<body>
+	<canvas id="canvas" width="960px" height="600px">
+	Tu navegador no soporta CANVAS
+	</canvas>
+</body>
+</html>
