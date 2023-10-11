@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Animación sprites</title>
+	<style>
+		body {
+			width: 1000px;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		canvas {
+			background-color: green;
+			border: solid yellow 3px;
+		}
+	</style>
+	<script>
+
+		var canvas, ctx;
+
+		window.onload = function () {
+
+			canvas = document.getElementById("canvas");
+
+			if (canvas && canvas.getContext) {
+
+				ctx = canvas.getContext("2d");
+
+				if (ctx) {
+
+					var accion = [
+						{ a: "Dead", n: 10 },
+						{ a: "Hurt", n: 8 },
+						{ a: "Idle", n: 10 },
+						{ a: "Jump", n: 12 },
+						{ a: "Run", n: 8 },
+						{ a: "Slide", n: 5 }
+					];
+
+					let cuadro = 0;
+					tecla = 4;
+					escala = 0.3;
+
+					var fondo = new Image();
+					fondo.src = "images/BG.png";
+
+					fondo.onload = function () {
+
+						ctx.drawImage(fondo, 0, 0, fondo.width, fondo.height);
+						inicioX = 0;
+						ancho = fondo.width;
+						dx = 25;
+
+
+						let numColumnas = accion[tecla].n;
+						//console.log("num3",numColumnas);
+						let a = accion[tecla].a;
+						let cuadro = 1;
+						let salto = 0;
+
+
+						setInterval(function () {
+
+							inicioX += dx;
+							ancho -= dx;				
+							ctx.drawImage(fondo,
+								inicioX, 0, ancho, fondo.height, 0, 0, ancho, fondo.height);
+
+							ctx.drawImage(fondo,
+								//lees
+								0, 0, fondo.width - ancho, fondo.height,
+								//dibujas
+								fondo.width - inicioX, 0, fondo.width - ancho, fondo.height);
+
+
+							var sprite = new Image();
+							sprite.src = "redhatfiles/png/" + a + " (" + cuadro + ").png";	
+							//console.log(a)
+							//console.log(cuadro)
+							sprite.onload = function () {
+
+								ctx.drawImage(sprite, 350, 480,
+									sprite.width * escala, sprite.height * escala);
+
+								cuadro++;
+
+								if (cuadro > numColumnas) {
+									cuadro = 1;
+									salto++;
+									//console.log(salto, tecla);
+									if (salto > 10 && tecla == 4) {
+										tecla = 3;
+										numColumnas = accion[tecla].n;
+										a = accion[tecla].a;
+										console.log(a)
+										console.log(numColumnas)
+									}else if(salto > 10 && tecla == 3){
+										salto = 0;
+										tecla = 4;
+										numColumnas = accion[tecla].n;
+										a = accion[tecla].a;
+
+									}
+
+								}
+
+							}
+
+							if (ancho <= 0) {
+
+								inicioX = 0;
+
+								ancho = fondo.width;
+
+							}
+
+
+
+						}, 1000 / 16);
+
+
+					}
+
+				}
+
+			}
+
+		}
+
+	</script>
+</head>
+
+<body>
+	<canvas id="canvas" width="1000px" height="750px">
+		Tu navegador no soporta CANVAS
+	</canvas>
+</body>
+
+</html>
