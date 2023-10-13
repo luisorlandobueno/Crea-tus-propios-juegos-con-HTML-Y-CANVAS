@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Animación sprites</title>
+<style>
+		body{
+			width:1000px;
+			margin:0 auto;
+			text-align: center;
+		}
+		canvas{
+			background-color: green;
+			border: solid yellow 3px;
+		}
+	</style>
+<script>
+	var canvas,ctx,miTecla=null,tecla,corre = true,objeto1,objeto;
+	var objetos_array=["Mushroom_1.png","Mushroom_2.png","Tree_1.png","Bush-3.png"];
+	//
+	window.onload=function() {
+		canvas = document.getElementById("canvas");
+		if (canvas && canvas.getContext) {
+			ctx = canvas.getContext("2d");
+			if (ctx) {
+				var accion = [
+				{a:"Idle", n:10},
+				{a:"Dead", n:10},
+				{a:"Hurt", n:8},
+				{a:"Jump", n:12},
+				{a:"Run", n:8},
+				{a:"Slide", n:5}
+				];
+				// Cuadro inicial
+				let cuadro = 1;
+				tecla = 4;
+				escala = 1;
+				//
+				//
+				//
+				personaje = [];
+				for (var i = 0; i < accion.length; i++) {
+					for (var j = 0; j < accion[i].n; j++) {
+						personaje.push({
+							a:accion[i].a, 
+							c:j+1,
+							s:null
+						});
+					}
+				}
+				//
+				document.onkeypress = function(e){
+					var tecla = String.fromCharCode(e.which);
+					tecla = Number(tecla);
+					if(tecla==0){
+						corre = !corre;
+					}
+				}
+				//
+				var fondo = new Image();
+				fondo.src = "images/BG.png";
+				fondo.onload = function(){
+					//ctx.drawImage(fondo,0,0,canvas.width,fondo.height);
+					inicioX = 0;
+					ancho = canvas.width;
+					dx = 10;
+					//
+					//sprite
+					//
+					let numColumnas = accion[tecla].n;
+					let a = accion[tecla].a;
+					let cuadro = 1;
+					let salto = 0;
+					let anchoPersonaje,altoPersonaje;
+					objetox = ancho;
+					generaObjeto();
+					objeto = true;
+
+					setInterval(function(){
+						//ctx.clearRect(0,0,960,600);
+
+						if(corre){
+							inicioX+=dx;
+							ancho-=dx;
+							ctx.drawImage(fondo,
+								inicioX,0,canvas.width,fondo.height,
+								0,0,canvas.width,fondo.height);
+							//
+							tecla = 4;
+							numColumnas = accion[tecla].n;
+							a = accion[tecla].a;
+							objetox-=dx;
+							if(objetox < -objeto1.width && objeto){
+								objeto = false;
+								
+								let i=3+Math.floor(Math.random()*4);
+								setTimeout(generaObjeto,i*1000)
+							}
+						} else {
+							ctx.drawImage(fondo,
+								inicioX,0,canvas.width,fondo.height,
+								0,0,canvas.width,fondo.height);
+							//cuadro = 1;
+							tecla = 0;
+							numColumnas = accion[tecla].n;
+							a = accion[tecla].a;
+						}
+						//
+						//Dibuja objeto
+						//
+						if(objeto){
+							ctx.drawImage(objeto1,objetox,300);
+						}
+						//
+						//Dibuja peronaje
+						//
+						index = existe(a,cuadro);
+						if(personaje[index].s==null){
+							var sprite = new Image();
+							sprite.src = "redhatfiles/png/"+a+" ("+cuadro+").png";
+							sprite.onload =  function(){
+								//
+						    	ctx.drawImage(sprite,120,200,
+						    		sprite.width*escala,sprite.height*escala);
+						    	personaje[index].s = sprite;
+						    	anchoPersonaje = sprite.width;
+						    	altoPersonaje = sprite.height;
+						    }
+						} else {
+							ctx.drawImage(personaje[index].s,120,200,
+						    		anchoPersonaje,altoPersonaje);
+						}
+					    // Siguiente cuadro
+					    cuadro++;
+
+					    // Número de cuadro
+				    	if (cuadro > numColumnas){
+				    		cuadro = 1;
+					    }
+						if (ancho<=0) {
+							inicioX = 0;
+							ancho = canvas.width;
+						}
+					},1000/16);
+				}
+			}
+		}
+	}			
+	function existe(accion, cuadro){
+		for (var i = 0; i < personaje.length; i++) {
+			if (personaje[i].a==accion && 
+				personaje[i].c==cuadro) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	function generaObjeto(){
+		objeto = true;
+		objetox = canvas.width;
+		objeto1 = new Image();
+		let i = Math.floor(Math.random()*objetos_array.length)
+		objeto1.src = "objetos/"+objetos_array[i];
+		console.log(objetos_array[i],objetox);
+		//return objeto1;
+	}
+</script>
+</head>
+<body>
+	<canvas id="canvas" width="500px" height="375px">
+	Tu navegador no soporta CANVAS
+	</canvas>
+</body>
+</html>
